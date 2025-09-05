@@ -1,0 +1,35 @@
+name: Daily COVID Data Fetch
+
+on:
+  schedule:
+    - cron: '0 12 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch-data:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Install uv
+      uses: astral-sh/setup-uv@v6
+      with:
+        enable-cache: true
+    
+    - name: Set up Python
+      run: uv python install
+    
+    - name: Fetch today's data
+      run: uv run fetch.py $(date +%Y-%m-%d)
+    
+    - name: Commit and push
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add .
+        git commit -m "$(date +%Y-%m-%d)" || exit 0
+        git push
