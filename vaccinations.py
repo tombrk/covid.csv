@@ -21,6 +21,9 @@ df_processed = df.rename(columns={
     'Anzahl': 'new'
 })
 
+# Filter out ags with value "u"
+df_processed = df_processed[df_processed['ags'] != 'u']
+
 # Sort by ags, age group, stage, and date for proper cumulative calculation
 df_processed = df_processed.sort_values(['ags', 'age_group', 'stage', 'date'])
 
