@@ -1,10 +1,3 @@
-# /// script
-# requires-python = ">=3.12"
-# dependencies = [
-#     "requests",
-#     "pandas",
-# ]
-# ///
 import requests
 import pandas as pd
 import os
@@ -37,7 +30,7 @@ with open(filename, 'wb') as f:
 
 print(f"unxz {filename} | pd.read_csv")
 with lzma.open(filename, 'rt') as f:
-    df = pd.read_csv(f)
+    df = pd.read_csv(f, dtype={'IdLandkreis': str})
 
 df_filtered = df[
     ((df['NeuerFall'].isin([1, -1])) | (df['NeuerTodesfall'].isin([1, -1]))) & 

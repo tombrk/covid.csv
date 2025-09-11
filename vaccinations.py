@@ -1,11 +1,3 @@
-# /// script
-# requires-python = ">=3.12"
-# dependencies = [
-#     "requests",
-#     "pandas",
-#     "tqdm",
-# ]
-# ///
 import requests
 import pandas as pd
 import os
@@ -15,7 +7,7 @@ from tqdm import tqdm
 url = "https://raw.githubusercontent.com/robert-koch-institut/COVID-19-Impfungen_in_Deutschland/refs/heads/main/Deutschland_Landkreise_COVID-19-Impfungen.csv"
 
 print(f"get {url}")
-df = pd.read_csv(url)
+df = pd.read_csv(url, dtype={'LandkreisId_Impfort': str})
 
 print("process vaccination data")
 df['Impfdatum'] = pd.to_datetime(df['Impfdatum'])
