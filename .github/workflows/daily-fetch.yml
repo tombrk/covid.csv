@@ -24,7 +24,7 @@ jobs:
       run: uv python install
     
     - name: Fetch today's data
-      run: uv run fetch.py $(date +%Y-%m-%d)
+      run: uv run cases.py $(date +%Y-%m-%d)
     
     - name: Commit and push
       run: |
